@@ -1,8 +1,7 @@
 import * as config from './config.mjs'
-import { makeTest, testResults } from './test.mjs'
+import { makeTest, testResults, testTraces } from './test.mjs'
 
-export async function runTests (tests, myFetch, browserCache, base, chunkSize = 50) {
-  config.setFetch(myFetch)
+export async function runTests (tests, browserCache, base, chunkSize = 25) {
   config.setBaseUrl(base)
   config.setUseBrowserCache(browserCache)
 
@@ -24,6 +23,14 @@ export function getResults () {
   const ordered = {}
   Object.keys(testResults).sort().forEach(key => {
     ordered[key] = testResults[key]
+  })
+  return ordered
+}
+
+export function getTraces () {
+  const ordered = {}
+  Object.keys(testTraces).sort().forEach(key => {
+    ordered[key] = testTraces[key]
   })
   return ordered
 }
